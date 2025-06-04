@@ -1,8 +1,14 @@
 from aiogram import Bot, Dispatcher
 from aiogram.filters import Command
 from aiogram.types import Message
+import os
 
-BOT_TOKEN = ''
+
+#TODO ловить ошибку в блоке с чтением файла токина
+
+f = open('С/tok.txt', 'r')
+BOT_TOKEN = f.read()
+f.close()
 
 # Создаём объекты бота и диспетчера
 bot = Bot(token=BOT_TOKEN)
