@@ -3,6 +3,7 @@ from aiogram.filters import Command
 from aiogram.types import Message
 import os
 
+from pyexpat.errors import messages
 
 #TODO ловить ошибку в блоке с чтением файла токина
 
@@ -18,8 +19,7 @@ dp = Dispatcher()
 @dp.message(Command(commands=["start"]))
 async def process_start_command(message: Message):
     await message.answer(
-        'Привет! '
-        'Меня зовут Эхо-бот!'
+        f'Здравствуйте, {message.chat.first_name} ({message.chat.username})!'
     )
 
 # Этот хендлер будет срабатывать на команду "/help"
@@ -36,5 +36,6 @@ async def process_help_command(message: Message):
 async def send_echo(message: Message):
     await message.reply(text=message.text)
 
+# print(Message.text)
 if __name__ == '__main__':
     dp.run_polling(bot)
