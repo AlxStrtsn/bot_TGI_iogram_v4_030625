@@ -6,7 +6,7 @@ import os
 
 #TODO ловить ошибку в блоке с чтением файла токина
 
-f = open('С/tok.txt', 'r')
+f = open('.//gitignor//tok.txt', 'r')
 BOT_TOKEN = f.read()
 f.close()
 
