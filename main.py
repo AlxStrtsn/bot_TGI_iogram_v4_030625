@@ -1,6 +1,7 @@
 from aiogram import Bot, Dispatcher
 from aiogram.filters import Command
 from aiogram.types import Message, BotCommand # BotCommand - для кнопки "Меню"
+# from lexicon.lexicon_ru import LEXICON_COMMANDS_RU
 import os
 
 from pyexpat.errors import messages
@@ -22,12 +23,14 @@ dp = Dispatcher()
 async def set_main_menu(bot: Bot):
     # Список команд и их описание для кнопки меню
     main_menu_commands = [
-        BotCommand(command='/start',
-                   description='Начать сначала.'),
+        BotCommand(command='/cafeteria',
+                   description='Кафетерий льгот. Главное меню'),
         BotCommand(command='/help',
                    description='Справка по работе бота.'),
         BotCommand(command='/contacts',
                    description='Контакты'),
+        BotCommand(command='/start',
+                   description='Начать сначала.')
     ]
     await bot.set_my_commands(main_menu_commands)
 
