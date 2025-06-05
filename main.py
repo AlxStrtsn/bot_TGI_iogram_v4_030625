@@ -1,6 +1,6 @@
 from aiogram import Bot, Dispatcher
 from aiogram.filters import Command
-from aiogram.types import Message
+from aiogram.types import Message, BotCommand # BotCommand - для кнопки "Меню"
 import os
 
 from pyexpat.errors import messages
@@ -18,9 +18,22 @@ f.close()
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
 
+# Создаём асинхронную функцию
+async def set_main_menu(bot: Bot):
+    # Список команд и их описание для кнопки меню
+    main_menu_commands = [
+        BotCommand(command='/start',
+                   description='Начать сначала.'),
+        BotCommand(command='/help',
+                   description='Справка по работе бота.'),
+        BotCommand(command='/contacts',
+                   description='Контакты'),
+    ]
+    await bot.set_my_commands(main_menu_commands)
+
 # Этот хэндлер будет срабатывать на кнопку "/start"
 async def process_start_command(message: Message):
-    await message.answer(f'Здравствуйте, {message.chat.first_name} ({message.chat.username})!')
+    await message.answer(f'Здравствуйте, {message.chat.first_name} ({message.chat.username})!, \nВыберите, что вас интересует.')
 
 # Этот хендлер будет срабатывать на команду "/help"
 async def process_help_command(message: Message):
@@ -40,4 +53,5 @@ dp.message.register(process_help_command, Command(commands='help'))
 dp.message.register(send_echo)
 
 if __name__ == '__main__':
+    dp.startup.register(set_main_menu)
     dp.run_polling(bot)
